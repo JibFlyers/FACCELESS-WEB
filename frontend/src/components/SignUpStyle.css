@@ -1,0 +1,229 @@
+.signUpContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFEEDD;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.progressStepContainer {
+    width: 40%;
+    height: auto;
+    background-color: #FFEEDD;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 5%;
+}
+.logoSignUp {
+    width: 20%;
+    opacity: 0.5;
+    position: relative;
+    margin-bottom: 10%;
+}
+
+.helloSignUp {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 60px;
+    font-weight: 900;
+    color: #5571D7;
+    margin: 0px 0px 30px 0px;
+}
+
+.questionsStepSignUp {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: #5571D7;
+    margin: 0;
+}
+
+.containerQuestionsStepSignUp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10%;
+}
+
+.inputSignUp {
+    margin-top: 30px;
+    width: 100%;
+    height: 4vh;
+    background-color: #FFEEDD;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-color: black;
+    border-bottom-width: 0.5px;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    outline: none;
+}
+
+.saveStepSignUp {
+    color: #FFEEDD;
+    width: 30%;
+    background-color: #5571D7;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    border: none;
+    border-radius: 19px;
+    padding: 5px 0px 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 0px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.errorSignUp {
+    color: red;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    background-color: #BCC8F0;
+    border-radius: 10px;
+    padding: 10px 20px 10px 20px
+}
+
+.containerPreviousButton {
+    width: 100%;
+}
+
+.previousButton {
+    color: #EC9A1F;
+    background-color: #FFEEDD;
+    width: 25%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    border: none;
+    border-radius: 19px;
+    padding: 5px 0px 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 0px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nextButton {
+    color: #5571D7;
+    background-color: #FFEEDD;
+    width: 25%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    border: none;
+    border-radius: 19px;
+    padding: 5px 0px 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 0px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.worriesContainer {
+    background-color: #FFEEDD;
+    box-shadow: 0px 5px 16px rgba(0, 0, 0, 0.35);
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px 0px 20px;
+    cursor: pointer;
+}
+
+.worriesText {
+    margin: 4%;
+    font-family: 'Montserrat', sans-serif;
+    color: #5571D7;
+    font-weight: 700;
+}
+
+.worriesContainerBis {
+    background-color: #BCC8F0;
+    box-shadow: 0px 5px 16px #5571D7;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px 0px 20px;
+    cursor: pointer;
+}
+
+.containerPreviousOptionnal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+    margin-bottom: 10%;
+}
+
+.cityListSignUpOptionnal {
+    margin-top: 5px;
+    width: 100%;
+    background-color:#BCC8F0;
+    cursor: pointer;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.cityText {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20;
+}
+
+.genderContainer {
+    display: flex;
+    flex-direction: row;
+    width: 120%;
+    margin-top: 30px;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+}
+
+.avatarContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-top: 5%;
+    overflow-x: scroll;
+}
+
+.avatar {
+    width: 15%;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.avatarBis {
+    width: 15%;
+    height: auto;
+    margin: 10px;
+    border: 5px solid #5571D7;
+    cursor: pointer;
+    border-radius: 50%;
+}

@@ -1,0 +1,56 @@
+.containerSignIn {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: #feeddb;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.titleSignIn {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    font-size: 48px;
+    color: #5571d7;
+    margin: 0px;
+}
+.textSignIn {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    color: #5571d7;
+    margin: 0px;
+}
+.setupSignIn {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 35%;
+}
+.inputSignIn {
+    margin-top: 30px;
+    width: 100%;
+    height: 4vh;
+    background-color: #FFEEDD;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-color: black;
+    border-bottom-width: 0.5px;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    outline: none;
+}
+.bouton {
+    border-radius: 30px;
+    border: none;
+    width: 200px;
+    height: 30px;
+    margin: 10px;
+    background-color: #5571D7;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: white;
+}

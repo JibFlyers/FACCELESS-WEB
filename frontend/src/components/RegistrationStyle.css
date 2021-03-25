@@ -1,0 +1,45 @@
+.firstPageContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFEEDD;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registrationContainer {
+    width: 30vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.buttonContainer {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.buttonRegistration {
+    color: #FFEEDD;
+    width: 35%;
+    background-color: #5571D7;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    border: none;
+    border-radius: 19px;
+    padding: 5px 0px 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 0px;
+    cursor: pointer;
+    text-decoration: none;
+}

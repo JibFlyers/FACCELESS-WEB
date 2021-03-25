@@ -1,0 +1,258 @@
+.ProfilScreenContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFEEDD;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.profilContainer{
+    height: 100%;
+    width: 80%;
+    padding: 20px;
+}
+
+.topProfil{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatarProfil {
+    width: 15%;
+    height: auto;
+    border: 3px solid #EC9A1F;
+    border-radius: 50%;
+}
+
+.buttonProfil {
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #5571D7;
+    border: 0px solid black;
+    color: white; 
+}
+
+.buttonProfilBis {
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #BCC8F0;
+    border: 0px solid black;
+    color: white; 
+}
+
+
+.pseudoText {
+    font-size: 20px;
+    color: #5571D7;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.titleCard{
+    font-size: 16;
+    color:  #EC9A1F;
+    font-family: "Montserrat";
+    font-weight: bold;
+}
+
+.problemContainer {
+    width: 80%;  
+}
+
+.badgeContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;   
+    margin-bottom: 10px;
+}
+
+.badgeProblem {
+    background-color: #5571D7;
+    height: 30px;
+    border-radius: 20px;
+    margin: 5px;
+    border: 0px solid black;
+    color: white;
+    font-family: "Montserrat";
+    font-weight: bold;
+}
+
+
+.badgeProblemBis {
+    background-color: #BCC8F0;
+    height: 30px;
+    border-radius: 20px;
+    margin: 5px;
+    border: 0px solid black;
+    color: white;
+    font-family: "Montserrat";
+    font-weight: bold;
+}
+
+.textBadgeProblem {
+    text-align: center;
+    vertical-align: center;
+    font-size: 13px;
+    color: white;
+    font-family: "Montserrat";
+    font-weight: bold;
+    margin: 5px;
+}
+
+.descriptionContainer {
+    width: 80%;
+    margin-bottom: 40px;
+}
+
+.problemDesc{
+    font-size: 13px;
+    font-family: "Montserrat";
+    font-weight: bold;
+}
+
+.title {
+    width: 100%;
+    font-size: 35px;
+    color: #5571D7;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+.emailText{
+    font-size: 18px;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.infoContainer {
+    margin-left: 20px;
+}
+
+.inputSignUpProfil {
+    width: 200px;
+    background-color: #ffc46b;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    margin-top: 20px;
+}
+
+.containerQuestionsStepSignUpProfil {
+    width:300px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.genderContainer {
+    width:100%;
+}
+
+.midContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.cityContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.genderContainer{
+    margin-top: 0px;
+}
+
+.modal-content {
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.modal-body{
+    justify-content: center;
+    text-align: center;
+}
+
+.avatarProfilModal {
+    width: 15%;
+    height: auto;
+    border: 3px solid #EC9A1F;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.viewSaveDisconnect {
+    flex-direction: "row";
+    width: "100%";
+    justify-content: "space-around";
+    align-items: "flex-end";
+    margin-top:10;
+    top:20;
+    margin-left:-20
+  }
+
+.mailContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconButton {
+    border: 0px;
+    background-color: #FFEEDD;
+    margin-bottom: 16px;
+    margin-left: 5px;
+}
+
+.descriptionModif{
+    display: flex;
+}
+
+.textAreaProblem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.buttonDesc {
+    width: 40%;
+    border: 0px;
+    background-color: #5571D7;
+    margin-left: 10%;
+    border-radius: 20px;
+}
+
+.inputSignUpDesc {
+    width: 200px;
+    background-color: #ffc46b;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: "Montserrat";
+    font-weight: bold;
+    color: black;
+}

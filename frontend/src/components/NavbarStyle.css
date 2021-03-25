@@ -1,0 +1,44 @@
+.navbarContainer {
+    width: 90vw;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 5px 16px rgba(0, 0, 0, 0.35);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    min-width: 700px;
+}
+
+.titleLogo {
+    font-family: 'Margarine', cursive;
+    margin: 0;
+    color: #5571D7;
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 30%;
+}
+
+.linkContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.linkNav {
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #EC9A1F;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+}
