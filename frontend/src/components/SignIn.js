@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-
 import { Redirect } from "react-router-dom";
-
 import {connect} from 'react-redux';
-
 import "./SignInStyle.css";
 
 function SignIn(props) {
@@ -15,16 +12,12 @@ function SignIn(props) {
     const [listErrorsSignIn, setErrorsSignIn] = useState([])
 
     var handleSubmitSignIn = async () => {
-        console.log(signInEmail, "on click signInEmail");
-        console.log(signInPassword, "on click signInPassword");
-
         const rawData = await fetch(`/sign-in`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`,
         });
         const data = await rawData.json();
-        console.log(data, "<----- After Fetch");
 
         if (data.result == true) {
             props.addToken(data.token)

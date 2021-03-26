@@ -2,25 +2,35 @@ var express = require('express');
 var router = express.Router();
 const UserModel = require('../models/users');
 const ConversationsModel = require('../models/conversations')
-const SignalementModel = require('../models/signalements')
 const MessagesModel = require('../models/messages');
-const DeletedUserModel = require('../models/deleted_users');
 
+// node module pour chiffrer le mot de passe
 var bcrypt = require('bcrypt');
-var uid2 = require('uid2');
 
+// permet la génération d'un token avec des chiffres et des lettres aléatoires 
+var uid2 = require('uid2');
 const cost = 10;
 
 var ObjectId = require('mongodb').ObjectId;
 const { request } = require('express');
 const { count } = require('../models/users');
 
-/* GET home page. */
+
+// Route permettant de vérifier si l'email existe déjà.
 router.post('/email-check', async function(req, res, next) {
   var user = await UserModel.findOne({email: req.body.emailFront});  
   user ? res.json({emailFound: true, error: 'Cet email est déjà associé à un compte'}) : res.json({emailFound: false})
 });
 
+
+// Route permettant de vérifier si le pseudo existe déjà.
+router.post('/pseudo-check', async function(req, res, next) {
+  var user = await UserModel.findOne({pseudo: req.body.pseudoFront});  
+  user ? res.json({pseudoFound: true, error: 'Ce pseudo existe déjà, veuillez en utiliser un autre'}) : res.json({pseudoFound: false})
+});
+
+
+// route permettant la connexion
 router.post('/sign-in', async function (req, res, next) {
 
   var result = false;
@@ -33,7 +43,6 @@ router.post('/sign-in', async function (req, res, next) {
   ) {
     error.push('champs vides')
   }
-
 
   user = await UserModel.findOne({
     email: req.body.emailFromFront,
@@ -50,17 +59,14 @@ router.post('/sign-in', async function (req, res, next) {
     error.push('email incorrect')
   }
 
-
   res.json({ result, user, token, error });
 });
 
-router.post('/pseudo-check', async function(req, res, next) {
-  var user = await UserModel.findOne({pseudo: req.body.pseudoFront});  
-  user ? res.json({pseudoFound: true, error: 'Ce pseudo existe déjà, veuillez en utiliser un autre'}) : res.json({pseudoFound: false})
-});
 
+// Route pour la première étape (obligatoire) de l'inscription
 router.post('/sign-up-first-step', async function(req, res, next) {
   
+  // on crypte le mot de passe
   const hash = bcrypt.hashSync(req.body.passwordFront, cost);
   var birthDate = new Date(req.body.birthDateFront)
   var dateToday = new Date()
@@ -74,6 +80,7 @@ router.post('/sign-up-first-step', async function(req, res, next) {
     isAdult = false
   }
 
+  //On crée le user en base
   var newUser = await new UserModel({
     email: req.body.emailFront,
     password: hash,
@@ -91,17 +98,20 @@ router.post('/sign-up-first-step', async function(req, res, next) {
   res.json({result: true, userSaved:userSaved})
 });
 
+
+// Second étape d'inscription (facultative) pour ajouter des informations au user
 router.post('/sign-up-second-step', async function (req, res, next) {
+
   var localisation = req.body.localisation;
   var gender = req.body.genderFront;
   var problemDesc = req.body.problemDescriptionFront;
   var avatar = req.body.avatarFront;
-  console.log(req.body, '<----- req body second step');
   req.body.localisationFront == 'undefined' || req.body.localisationFront == undefined ? localisation = {label: 'France'} : localisation = JSON.parse(req.body.localisationFront);
   req.body.genderFront == 'undefined' ? gender = '' : gender = req.body.genderFront;
   req.body.problemDescriptionFront == 'undefined' ? problemDesc = '' : problemDesc = req.body.problemDescriptionFront;
   req.body.avatarFront == 'undefined' ? avatar = 'hhttps://i.imgur.com/atDrheA.png' : avatar = req.body.avatarFront;
 
+  // On va aller mettre à jour le user précédemment créé en base.
   var user = await UserModel.updateOne(
     { token: req.body.tokenFront }, 
     {
@@ -113,41 +123,41 @@ router.post('/sign-up-second-step', async function (req, res, next) {
   );
 
   var userUpdated = await UserModel.findOne({ token: req.body.tokenFront })
-  console.log(userUpdated, '<------- USER UPDATED')
   var result;
   userUpdated ? result = true : result = false
 
   res.json({ result: result, userUpdated:userUpdated });
 })
 
+
+// Cette route permet d'afficher les profils des autres utilisateurs sur la homepage
 router.post('/show-card', async function (req, res, next) {
 
+  //On va chercher tous les users dont le token est différent de l'utilisateur connecté.
   var userToDisplay = await UserModel.find({token: { $ne: req.body.tokenFront }})
-  console.log(userToDisplay, '<------ USER TO DISPLAY');
 
   res.json({userToDisplay})
-
 })
 
+
+// Cette route permet de renvoyer les informations nécessaires à l'affichage d'un profil.
 router.post('/show-profil', async function (req, res, next) {
 
   var userProfil = await UserModel.findOne({token: req.body.tokenFront })
-  console.log(userProfil, '<------ PROFIL DU USER');
-
   var label = userProfil.localisation.label
 
   res.json({userProfil, label})
 
 })
 
+
+// Cette route permet de mettre à jour le profil de l'utilisateur connecté.
 router.post("/update-profil", async function (req, res, next) {
 
   var userBeforeUpdate = await UserModel.findOne({ token: req.body.tokenFront })
-  console.log(userBeforeUpdate, '<---- userBeforeUpdate')
-
   var problemsTypeParse = JSON.parse(req.body.problemsTypeFront)
 
-  // ajout du genre et descriptionProblemFront
+  // Modification des informations de l'utilisateur s'il a choisi de modifier un champ.
   await UserModel.updateOne(
     { token: req.body.tokenFront },
     {
@@ -163,7 +173,6 @@ router.post("/update-profil", async function (req, res, next) {
 
 
   var userAfterUpdate = await UserModel.findOne({ token: req.body.tokenFront })
-  console.log(userAfterUpdate, '<---- userAfterUpdate')
 
   var result;
   userAfterUpdate ? result = true : result = false
@@ -171,6 +180,8 @@ router.post("/update-profil", async function (req, res, next) {
   res.json({ userSaved: userAfterUpdate, result });
 });
 
+
+// Cette route permet d'afficher les conversations que j'ai avec quelques infos et les derniers messages reçu ou envoyés.
 router.post('/show-msg', async function (req, res, next) {
 
   var myUser = await UserModel.findOne({ token: req.body.tokenFront });
@@ -181,6 +192,7 @@ router.post('/show-msg', async function (req, res, next) {
 
   await Promise.all(myConversations.map(async (element, i) => {
 
+    // construit un tableau listant le dernier message de chaque conversation
     var lastMessage = await MessagesModel.findOne({conversation_id: element._id}).sort({date: -1})
     var userId;
 
@@ -202,11 +214,11 @@ router.post('/show-msg', async function (req, res, next) {
   res.json({ allConversations: myLastMessages, myConversations:myConversations})
 })
 
+
+// récupère l'id utilisateur à partir du token
 router.post('/get-id-from-token', async function (req, res, next) {
   
   const me = await UserModel.findOne({ token: req.body.tokenFront })
-
-  console.log(me)
 
   if (me) {
     res.json({
@@ -221,21 +233,16 @@ router.post('/get-id-from-token', async function (req, res, next) {
   }
 })
 
-/* show-convers -> afficher la conversation avec les autres utilisateurs.
-query : conversationIdFront : 1234     ou     tokenFront : 1234
-response : collection message qui est liée et conversation_id.    OU : variable contenant 10 objets (10 dernières conv) contenant avatar, pseudo, contenu du message
-*/
+
+// sPermet d'afficher la conversation avec un autre utilisateur.
 router.post('/show-convers', async function (req, res, next) {
 
-
   var myConversations = JSON.parse(req.body.myConvers)
-
 
   for (let i=0; i<myConversations.length; i++) {
     var findConvers = myConversations[i].participants.find(element=> element == req.body.idUser);
     if ( findConvers != null) {
       findConvers = myConversations[i]
-      console.log(findConvers, '<---- good convers')
       var conversId = findConvers._id
     }
   };
@@ -244,17 +251,18 @@ router.post('/show-convers', async function (req, res, next) {
     { conversation_id: conversId }
   ).sort({ date: 1 });
 
-  console.log(allMessagesWithOneUser,'<------MESSAGES USER')
-
   res.json({ allMessagesWithOneUser:allMessagesWithOneUser})
 });
 
+
+// Permet d'envoyer un message à un autre utilisateur.
 router.post('/send-msg', async function (req, res, next) {
 
   const searchConvWithUser = await ConversationsModel.findOne({
     participants: { $all: [req.body.myId, req.body.myContactId] }
   })
 
+  // vérifie qu'une conversation existe déjà, sinon ccela crée une coonversation
   if (searchConvWithUser != null) {
 
   var msg = new MessagesModel({
@@ -275,11 +283,6 @@ router.post('/send-msg', async function (req, res, next) {
   })
   var newConv = await conv.save()
 }
-
-
-
-  console.log(newMsg)
-
   let demandEnd = false
 
   if (searchConvWithUser.demand) {
@@ -289,7 +292,6 @@ router.post('/send-msg', async function (req, res, next) {
 
     for (var i = 0; i < allMsg.length; i++) {
       if (allMsg[i].to_id == req.body.myId) {
-        // condition fonctionnelle mais à améliorer
         var updateStatusConv = await ConversationsModel.updateOne(
           { _id: searchConvWithUser._id },
           { demand: false }

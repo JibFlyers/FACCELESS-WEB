@@ -19,9 +19,6 @@ function HomeScreen(props) {
     const [modal, setModal] = useState(false);
 
 
-
-    console.log(props.userToken,'<------token user')
-
     useEffect(() => {
         const handleGetId = async () => {
             var rawResponse = await fetch('/get-id-from-token', {
@@ -40,7 +37,6 @@ function HomeScreen(props) {
             });
             var response = await rawResponse.json()
             setUserToDisplay(response.userToDisplay)
-            console.log(response, '<)))------- USER TO DISPLAYFRONT');
         };
         handleGetId();
         handleGetCards();

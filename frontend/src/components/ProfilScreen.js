@@ -22,17 +22,13 @@ function ProfilScreen(props) {
     const [modal, setModal] = useState(false);
     const [email, setEmail] = useState("");
     const [localisation, setLocalisation] = useState({});
-    const [password, setPassword] = useState("");
+    const [password, setPassword] = useState(""); /* Normalement utile pour la modification du password mais je n'ai pas eu le temps de la gérer */
     const [problemDescription, setProblemDescription] = useState("");
     const [emailVisible, setEmailVisible] = useState(false);
-    const [mdpVisible, setMdpVisible] = useState(false);
     const [isValidated, setIsValidated] = useState(false);
     const [saveButton, setSaveButton] = useState(false);
     const [descriptionVisible, setDescriptionVisible] = useState(false);
     const [token, setToken] = useState("");
-
-console.log(props.userToken, '<----- token PROFIL A ENVOYER')
-
 
 useEffect(() => {
     const handleGetProfil = async () => {
@@ -42,7 +38,6 @@ useEffect(() => {
             body: `tokenFront=${props.userToken}`
         });
         var response = await rawResponse.json()
-        console.log(response, '<)))------- USER PROFIL INFO');
         setUserProfil(response.userProfil)
         setGender(response.userProfil.gender)
         setProblemsTypes(response.userProfil.problems_types)
@@ -118,11 +113,8 @@ const toggle = () => setModal(!modal);
 
 const handleSaveChange = () => {
     var problemsTypeStringify = JSON.stringify(problems);
-    // console.log(problemsTypeStringify, "<--- problemsTypeStringify changé")
 
     async function updateUser() {
-      // console.log(localisation, "<--- localisation changé localisation on ASYNC handleSaveChange");
-      // console.log(problems, "<--- problems changé problems on ASYNC handleSaveChange")
 
       var rawResponse = await fetch(`/update-profil`, {
         method: "POST",
@@ -130,8 +122,6 @@ const handleSaveChange = () => {
         body: `tokenFront=${props.userToken}&avatarFront=${avatar}&emailFront=${email}&localisationFront=${JSON.stringify(localisation)}&passwordFront=${password}&genderFront=${gender}&descriptionProblemFront=${problemDescription}&problemsTypeFront=${JSON.stringify(problemsTypes)}`,
       });
       var response = await rawResponse.json();
-
-      // console.log(response, "-------- RESPONSE --------");
 
       if (response.userSaved.avatar) {
         setAvatar(response.userSaved.avatar);
@@ -147,9 +137,6 @@ const handleSaveChange = () => {
         setCityVisible(false);
       }
 
-      if (response.userSaved.password) {
-        setMdpVisible(false);
-      }
 
       if (response.userSaved.gender) {
         setGender(response.userSaved.gender);
@@ -183,12 +170,10 @@ const handleSaveChange = () => {
 
   const handleChangeDesc = (e) => {
     setProblemDescription(e.target.value)
-    console.log(e.target.value)
 }
 
   const handleChangeEmail = (e) => {
       setEmail(e.target.value)
-      console.log(e.target.value)
   }
 
 

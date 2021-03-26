@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  faCircle, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import {  Modal, ModalHeader, ModalBody } from 'reactstrap';
-import SwitchSelector from "react-switch-selector";
-import { Link, Router, Switch, Route, Redirect } from 'react-router-dom';
+import {  faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
 import moment from "moment";
 import 'moment/locale/fr'
 
@@ -19,46 +17,28 @@ function ConversationScreen(props) {
     const [myId, setMyId] = useState(null)
     const [conversations, setConversations] = useState([])
     const [myConversations, setMyConversations] = useState([])
-    const [unreadPerConversation, setUnreadPerConversation] = useState([])
     const [part, setPart] = useState('')
     const [nbDemand, setNbDemand] = useState(0)
-    const [goodConvers, setGoodConvers] = useState({})
     const [data, setData] = useState([])
     const [myContactId, setMyContactId] = useState("")
     const [currentMsg, setCurrentMsg] = useState("")
-    const [disableSendBtn, setDisableSendBtn] = useState(true)
     const [demandEnd, setDemandeEnd] = useState(false)
 
 
-console.log(currentMsg)
-
-
-  //   let demandEnd = null;
-  // if (props.route && props.route.params && props.route.params.demandEnd) {
-  //   demandEnd = props.route.params.demandEnd
-  // }
-
-  // console.log(props.userToken,'<------token')
-
     const loadConversations = async (params) => {
-        // console.log('loadConversations - myId', myId)
-        if (myId) { // l'id obtenue à partir du token existe bien
+        if (myId) { 
           let uri = `/show-msg?user_id=${myId}`
           if (params && params.demandes) {
             uri += `&demandes=oui`
           }
           const dialogues = await fetch(uri, { method: 'GET' })
-    
           const dialoguesWithFriends = await dialogues.json()
-          // console.log('dialoguesWithFriends.conversations = ', dialoguesWithFriends.conversations)
           setConversations(dialoguesWithFriends.conversations)
           setNbDemand(dialoguesWithFriends.nbNewConversations)
-    
           let nolu = []
           dialoguesWithFriends.conversations.forEach(element => {
             nolu.push(element.nbUnreadMsg)
           });
-          setUnreadPerConversation(nolu)
         }
     }
 
@@ -94,28 +74,7 @@ console.log(currentMsg)
 
   }, [demandEnd])
 
-  // useEffect(() => {
-  //   // au focus du screen, le contenu de la page se réinitialise à interval 3 secondes
-  //   // quand on quitte le screen, l'interval est stoppé
-  //   if (isFocused) {
-  //     const interval = setInterval(() => loadConversations({ demandes: false }), 3000)
-  //     if (part === 'demandes') {
-  //       clearInterval(interval)
-  //     }
-  //     return () => {
-  //       // console.log('fin')
-  //       clearInterval(interval)
-  //     }
-  //   }
-
-  // }, [myId, isFocused, part])
-
-
-  const handleMessage = (e) => {
-  }
-
   const sendMessage = async (e) => {
-    setDisableSendBtn(true)
         const rawResponseDemand = await fetch(`/send-msg`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -131,7 +90,6 @@ console.log(currentMsg)
         }
   }
 
-  console.log(myConversations, '<)))------- CONVERS RETOUR');
 
   const handleGetMessages = async (e) => {
       setMyContactId(e.idUser)
@@ -144,15 +102,11 @@ console.log(currentMsg)
       setData(messages.allMessagesWithOneUser)
     }
 
-          console.log(data, '<)))------- CONVERS RESPONSE');
           let dateCheck
           let dateToShow
 
  var tabMsg = data.map((item, i) => {
   let when = new Date(item.date)
-  // let whenFormat = when.toLocaleDateString('fr-FR', { weekday: 'short', month: 'numeric', day: 'numeric' })
-  //     + ' à ' + when.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-  let hours = when.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   let date = when.toLocaleDateString('fr-FR', { weekday: 'long', month: 'short', day: 'numeric' })
   if (date != dateCheck) {
     dateCheck = date
@@ -189,12 +143,10 @@ console.log(currentMsg)
 }
  })
 
- console.log(conversations,'<--- A reprendre pour last message')
 const items = []
 for (let i=0; i<conversations.length; i++ ) {
   moment.locale('fr');
   var NewDate = moment(conversations[i].dateLastMessage).format('Do MMMM YYYY h:mm')
-    // if (el.lastMessage && el.friendsDatas) {
       let when = new Date(conversations[i].date)
       let whenFormat = when.toLocaleDateString('fr-FR', { weekday: 'short', month: 'short', day: 'numeric' })
         + ' à ' + when.toLocaleTimeString('fr-FR')

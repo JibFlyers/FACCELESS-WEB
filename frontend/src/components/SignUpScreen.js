@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faHeart, faUsers, faMale, faBriefcase, faSchool, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
-
 import './SignUpStyle.css'
 
 function SignUpScreen(props) {
